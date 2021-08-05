@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { CreateUserDto } from '../user/dto/create-user.dto';
 import { UserService } from '../user/user.service';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -34,5 +36,9 @@ export class AuthService {
       data,
       access_token: this.jwtService.sign(data),
     };
+  }
+
+  register(user: RegisterDto) {
+    return this.userService.create(user as CreateUserDto);
   }
 }
