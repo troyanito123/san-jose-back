@@ -10,6 +10,7 @@ import { RoleModule } from './modules/role/role.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { IncomeExpenseModule } from './modules/income-expense/income-expense.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { IncomeExpenseModule } from './modules/income-expense/income-expense.mod
     UserModule,
     AuthModule,
     IncomeExpenseModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
