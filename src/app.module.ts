@@ -9,6 +9,7 @@ import { DatabaseConfig } from './config/database.config';
 import { RoleModule } from './modules/role/role.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { IncomeExpenseModule } from './modules/income-expense/income-expense.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthModule } from './modules/auth/auth.module';
     RoleModule,
     UserModule,
     AuthModule,
+    IncomeExpenseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
