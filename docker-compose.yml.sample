@@ -1,0 +1,9 @@
+version: '3'
+services:
+  sanjose_db:
+    image: 'postgres:latest'
+    container_name: 'YOUR_CONTAINER_NAME'
+    ports:
+      - 'YOURPORT:YOURCONTAINERPORT'
+    environment:
+      POSTGRES_PASSWORD: 'YOUR PASSWORD'
