@@ -17,8 +17,9 @@ export class UserService {
     const newUser = this.userRepository.create(createUserDto);
     if (createUserDto.roleId) {
       newUser.role = await this.roleService.findOne(createUserDto.roleId);
+    } else {
+      newUser.role = await this.roleService.findByCode(RoleCode.USER);
     }
-    newUser.role = await this.roleService.findByCode(RoleCode.USER);
     newUser.password = PasswordEncrypter.encrypt(createUserDto.password);
 
     const { password, ...data } = await this.userRepository.save(newUser);
