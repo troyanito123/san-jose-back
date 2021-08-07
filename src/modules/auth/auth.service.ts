@@ -38,7 +38,13 @@ export class AuthService {
     };
   }
 
-  register(user: RegisterDto) {
-    return this.userService.create(user as CreateUserDto);
+  async register(user: RegisterDto) {
+    const userdb = await this.userService.create(user as CreateUserDto);
+    const { id, name, email } = userdb;
+    const data = { id, name, email, role: userdb.role.code };
+    return {
+      data,
+      access_token: this.jwtService.sign(user),
+    };
   }
 }
