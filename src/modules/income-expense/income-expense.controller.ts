@@ -21,6 +21,7 @@ import { editFileName, imageFileFilter } from 'src/utils/file-upload.utils';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RoleOptions, Roles } from '../auth/authorization/role.decorator';
 import { RolesGuard } from '../auth/authorization/role.guard';
+import { FindOneDto } from './dto/find-one.dto';
 
 @Controller('income-expense')
 @Roles(RoleOptions.Admin)
@@ -57,8 +58,8 @@ export class IncomeExpenseController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.incomeExpenseService.findOne(+id);
+  findOne(@Param() params: FindOneDto) {
+    return this.incomeExpenseService.findOne(params.id);
   }
 
   @Put(':id')

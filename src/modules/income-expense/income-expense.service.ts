@@ -38,7 +38,7 @@ export class IncomeExpenseService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} incomeExpense`;
+    return this.incomeExpenseRepository.findOne(id);
   }
 
   update(id: number, updateIncomeExpenseDto: UpdateIncomeExpenseDto) {
