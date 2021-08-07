@@ -25,8 +25,10 @@ export class CloudinaryService {
     return uploadedImage.secure_url;
   }
 
-  async replaceImage(imageId: string, newImage: ImageInterface) {
+  async replaceImage(imageUrl: string, newImage: ImageInterface) {
+    const imageId = this.getImageId(imageUrl);
     const deleted = await this.v2.uploader.destroy(imageId);
+    console.log(deleted);
     if (deleted.result !== 'ok') {
       return null;
     }
@@ -35,8 +37,13 @@ export class CloudinaryService {
     return uploadedImage.secure_url;
   }
 
-  async deleteImage(imageId: string) {
+  async deleteImage(imageUrl: string) {
+    const imageId = this.getImageId(imageUrl);
     const deleted = await this.v2.uploader.destroy(imageId);
     return deleted.result === 'ok' ? true : false;
+  }
+  private getImageId(url: string) {
+    const arr = url.split('/');
+    return arr[arr.length - 1].split('.')[0];
   }
 }

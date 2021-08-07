@@ -63,17 +63,31 @@ export class IncomeExpenseController {
   }
 
   @Put(':id')
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: join(__dirname, '../../public/img/uploads'),
+        filename: editFileName,
+      }),
+      fileFilter: imageFileFilter,
+    }),
+  )
   @UseGuards(RolesGuard)
   update(
-    @Param('id') id: string,
+    @Param() params: FindOneDto,
     @Body() updateIncomeExpenseDto: UpdateIncomeExpenseDto,
+    @UploadedFile() file,
   ) {
-    return this.incomeExpenseService.update(+id, updateIncomeExpenseDto);
+    return this.incomeExpenseService.update(
+      params.id,
+      updateIncomeExpenseDto,
+      file,
+    );
   }
 
   @Delete(':id')
   @UseGuards(RolesGuard)
-  remove(@Param('id') id: string) {
-    return this.incomeExpenseService.remove(+id);
+  remove(@Param() params: FindOneDto) {
+    return this.incomeExpenseService.remove(params.id);
   }
 }

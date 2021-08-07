@@ -41,11 +41,29 @@ export class IncomeExpenseService {
     return this.incomeExpenseRepository.findOne(id);
   }
 
-  update(id: number, updateIncomeExpenseDto: UpdateIncomeExpenseDto) {
-    return `This action updates a #${id} incomeExpense`;
+  async update(
+    id: number,
+    updateIncomeExpenseDto: UpdateIncomeExpenseDto,
+    image: Express.Multer.File,
+  ) {
+    const incomeExpenseDB = await this.incomeExpenseRepository.findOne(id);
+    if (image) {
+      const url = await this.cloudinaryService.replaceImage(
+        incomeExpenseDB.image,
+        image,
+      );
+      console.log(url);
+      if (url) {
+        incomeExpenseDB.image = url;
+      }
+    }
+    this.incomeExpenseRepository.merge(incomeExpenseDB, updateIncomeExpenseDto);
+    return this.incomeExpenseRepository.save(incomeExpenseDB);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} incomeExpense`;
+  async remove(id: number) {
+    const incomeExpense = await this.incomeExpenseRepository.findOne(id);
+    await this.cloudinaryService.deleteImage(incomeExpense.image);
+    return this.incomeExpenseRepository.delete(id);
   }
 }
