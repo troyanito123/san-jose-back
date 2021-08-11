@@ -34,7 +34,7 @@ export class IncomeExpenseService {
   }
 
   findAll() {
-    return this.incomeExpenseRepository.find();
+    return this.incomeExpenseRepository.find({ order: { date: 'DESC' } });
   }
 
   findOne(id: number) {
