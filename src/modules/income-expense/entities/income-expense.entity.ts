@@ -41,7 +41,7 @@ export class IncomeExpense {
   @Column()
   image: string;
 
-  @Column()
+  @Column({ default: 'NO-CODE' })
   code: string;
 
   @CreateDateColumn()
