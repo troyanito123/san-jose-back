@@ -1,5 +1,7 @@
 import { User } from 'src/modules/user/entities/user.entity';
 import {
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -39,6 +41,9 @@ export class IncomeExpense {
   @Column()
   image: string;
 
+  @Column()
+  code: string;
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -47,4 +52,10 @@ export class IncomeExpense {
 
   @ManyToOne(() => User, (user) => user.incomeExpenses)
   user: User;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  codeToUppercase() {
+    this.code = this.code.trim().toUpperCase();
+  }
 }

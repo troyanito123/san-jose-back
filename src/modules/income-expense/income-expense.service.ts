@@ -52,7 +52,6 @@ export class IncomeExpenseService {
         incomeExpenseDB.image,
         image,
       );
-      console.log(url);
       if (url) {
         incomeExpenseDB.image = url;
       }

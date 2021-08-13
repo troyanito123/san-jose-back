@@ -27,4 +27,7 @@ export class CreateIncomeExpenseDto {
 
   @IsNotEmpty()
   to_user: string;
+
+  @IsNotEmpty()
+  code: string;
 }
